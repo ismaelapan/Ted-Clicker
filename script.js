@@ -102,7 +102,8 @@ function load(){
   m = +data[6]
   s = +data[7]
   st = +data[8]
- 
+
+
   multicounter = multiplier
   updateUI()
 }
@@ -124,6 +125,7 @@ setInterval(() => {
     updateUI()
     if (teds >= 1000000) {
       document.getElementById("ted").src = "gojo.png"
+      document.getElementById("palm").src = "void.png"
     }
     save()
    

@@ -34,6 +34,11 @@ function updateUI() {
   pristag2.textContent = pris2 + " teds"
   pristag3.textContent = pris3 + " teds"
   pristag4.textContent = pris4 + " teds"
+  tpc.textContent = k
+  tps.textContent = s
+  mc.textContent = m
+  multi.textContent = "Multiplier: " + multiplier.toFixed(3) + "x"
+  sps.textContent = st
 }
  
 function clicked() {
@@ -93,15 +98,25 @@ function load(){
   tedsPerSecond = +data[1]
   superPerSecond = +data[3]
   teds = +data[4]
+  k = +data[5]
+  m = +data[6]
+  s = +data[7]
+  st = +data[8]
+ 
+  multicounter = multiplier
+  updateUI()
 }
  
-function deletesave(){
-    localStorage.removeItem("userData")
-    window.location.reload()
+function deletesave() {
+  if (confirm("vill du radera eller inte jao.")) {
+    localStorage.clear();
+    alert("Save deleted.");
+    location.reload();
+  }
 }
  
 function save(){
-  localStorage.setItem("userData",[tedsPerClick,tedsPerSecond,multiplier,superPerSecond,teds])
+  localStorage.setItem("userData",[tedsPerClick,tedsPerSecond,multiplier,superPerSecond,teds,k,m,s,st])
 }
 setInterval(() => {
     teds += tedsPerSecond * multiplier

@@ -32,13 +32,16 @@ body {
   }
  
   button:active {
-    transform: scale(0.92);
+    transform: scale(0.92) rotate(-3deg);
   }
  
   #teds {
+        display: flex;
+    justify-content: center;
+    margin-top: 55vh;
     position: fixed;
-    top: 15px;
-    right: 15px;
+    left: 50%;
+    transform: translateX(-50%);
     background: white;
     color: black;
     padding: 10px 16px;
@@ -49,9 +52,12 @@ body {
   }
  
   #multicounter {
+        display: flex;
+    justify-content: center;
+    margin-top: 50vh;
     position: fixed;
-    top: 60px;
-    right: 15px;
+    left: 50%;
+    transform: translateX(-50%);
     background: white;
     color: black;
     padding: 10px 16px;
@@ -61,21 +67,81 @@ body {
     text-align: center;
   }
  
- 
-  .upgrades {
-    padding: 20px;
-  }
- 
-  .upgrades span {
+  #deletesave, .deletesave {
+    position: fixed;
+    bottom: 15px ;
+    right: 15px ;
+    z-index: 9999;
     background: white;
-    padding: 6px 10px;
-    border-radius: 12px;
+    color: black;
+    padding: 10px 16px;
+    border-radius: 16px;
     font-weight: 600;
-    margin-right: 6px;
+    width: 200px;
+    text-align: center;
+  }
+  .upgrades {
+    
+
+    position: fixed;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(255,255,255,0.98);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    padding: 12px;
+    width: 260px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: default;
+    z-index: 9998;
+  }
+ #deletesave {
+        position: fixed;
+        justify-content: center;
+        align-items: flex-end;
+        bottom: 15px;
+        right: 15px;
+        background: white;
+        color: black;
+        padding: 10px 16px;
+        border-radius: 16px;
+        font-weight: 600;
+        width: 200px;
+        text-align: center;
+  }
+  .upgrades span {
+    display: block;
+    background: transparent;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
   }
  
+.merges {
+    position: fixed;
+    left: 15px;
+    top: calc(50% + 280px);
+    transform: translateY(-0%);
+    background: rgba(255,255,255,0.98);
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    width: 260px;
+    z-index: 9998;
+    font-weight: 600;
+    text-align: left;
+  }
   .center {
     display: flex;
     justify-content: center;
-    margin-top: 35vh;
+    align-items: center;
+    height:  160vh;
   }

@@ -12,10 +12,11 @@ let pris = 100
 let pris2 = 1500
 let pris3 = 50
 let pris4 = 5000
-let pris5 = 1000000
+let pris5 = 5000000
+let pris6 =100000000
 let resetting=false
 let megatedbutton = false
- 
+let china = false
 
 
 const tedstag = document.getElementById("teds")
@@ -143,6 +144,13 @@ function megated(){
         updateUI()
     }
 } 
+function chinated(){
+  if (teds >= pris6){
+    teds -=pris6
+    china = true
+
+  }
+}
 
 function deletesave() {
   if (confirm("vill du radera eller inte jao.")) {
@@ -172,6 +180,11 @@ setInterval(() => {
             document.getElementById("palm").src = "jungle.png"
        
     }
+    if(china == true){
+      document.getElementById("ted").src = "ching.png"
+      document.getElementById("palm").src = "chinahouse.png"
+ 
+}
     save()
    
   }, 1000)

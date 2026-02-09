@@ -14,9 +14,11 @@ let pris3 = 62
 let pris4 = 6250  
 let pris5 = 10000000 
 let pris6 = 300000000 
+let pris7 = 1000000000
 let resetting=false
 let megatedbutton = false
 let china = false
+let gato = false
 
 const tedstag = document.getElementById("teds")
 const pristag = document.getElementById("pris")
@@ -114,7 +116,8 @@ function load(){
   pris4 = +data[12]
   megatedbutton = data[13] === "true"
   china = data[14] === "true"
-  if (megatedbutton === true || china === true) {
+  gato = data[15] === "true"
+  if (megatedbutton === true || china === true || gato === true) {
     let megadiv = document.getElementsByClassName("megated")
     for (let i = 0; i < megadiv.length; i++) {
       megadiv[i].remove()
@@ -124,6 +127,12 @@ function load(){
     let chinadiv = document.getElementsByClassName("chinated")
     for (let i = 0; i < chinadiv.length; i++) {
       chinadiv[i].remove()
+    }
+  }
+  if (gato === true) {
+    let gatodiv = document.getElementsByClassName("gato")
+    for (let i = 0; i < gatodiv.length; i++) {
+      gatodiv[i].remove()
     }
   }
   
@@ -158,6 +167,20 @@ function chinated(){
     updateUI()
   }
 }
+function gatoted(){
+  if (teds >= pris7){
+    teds -=pris7
+    gato = true
+    multiplier *= 1000
+    if (gato == true) {
+      let gatodiv = document.getElementsByClassName("gatoted")
+      for (let i = 0; i < gatodiv.length; i++) {
+        gatodiv[i].remove()
+      }
+    }
+    updateUI()
+  }
+}
 
 function deletesave() {
   if (confirm("vill du radera eller inte jao.")) {
@@ -171,7 +194,7 @@ function deletesave() {
  
 function save(){
     if (resetting){return null}
-  localStorage.setItem("userData",[tedsPerClick,tedsPerSecond,multiplier,superPerSecond,teds,k,m,s,st,pris,pris2,pris3,pris4, megatedbutton, china])
+  localStorage.setItem("userData",[tedsPerClick,tedsPerSecond,multiplier,superPerSecond,teds,k,m,s,st,pris,pris2,pris3,pris4, megatedbutton, china,gato])
 }
 
 setInterval(() => {
@@ -190,6 +213,12 @@ setInterval(() => {
       document.getElementById("ted").src = "ching.png"
       document.getElementById("palm").src = "chinahouse.png"
       megatedbutton = false
+    }
+    if(gato == true){
+      document.getElementById("ted").src = "gato.png"
+      document.getElementById("palm").src = "swedish.png"
+      megatedbutton = false
+      china === false
     }
     save()
 }, 1000)

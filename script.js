@@ -173,7 +173,7 @@ function gatoted(){
     gato = true
     multiplier *= 1000
     if (gato == true) {
-      let gatodiv = document.getElementsByClassName("gatoted")
+      let gatodiv = document.getElementsByClassName("gato")
       for (let i = 0; i < gatodiv.length; i++) {
         gatodiv[i].remove()
       }
@@ -218,7 +218,7 @@ setInterval(() => {
       document.getElementById("ted").src = "gato.png"
       document.getElementById("palm").src = "swedish.png"
       megatedbutton = false
-      china === false
+      china = false
     }
     save()
 }, 1000)

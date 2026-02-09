@@ -8,16 +8,15 @@ let m = 0
 let k = 0
 let s = 0
 let st = 0
-let pris = 100
-let pris2 = 1500
-let pris3 = 50
-let pris4 = 5000
-let pris5 = 5000000
-let pris6 =100000000
+let pris = 120   
+let pris2 = 2550  
+let pris3 = 62  
+let pris4 = 6250  
+let pris5 = 10000000 
+let pris6 = 300000000 
 let resetting=false
 let megatedbutton = false
 let china = false
-
 
 const tedstag = document.getElementById("teds")
 const pristag = document.getElementById("pris")
@@ -30,7 +29,6 @@ const mc = document.getElementById("multiplier")
 const multi = document.getElementById("multicounter")
 const sps = document.getElementById("superPerSecond")
  
-
 if (localStorage.getItem("userData")!=undefined){
     load()
 }
@@ -57,7 +55,7 @@ function upgrade() {
   if (teds >= pris) {
     teds -= pris
     tedsPerClick += 1
-    pris = Math.floor(pris * 1.05)
+    pris = Math.floor(pris * 1.2) 
     k++
     tpc.textContent = k
     updateUI()
@@ -69,7 +67,7 @@ function upgrade2() {
     teds -= pris2
     multiplier *= 1.2    
     multicounter *= 1.2
-    pris2 = Math.floor(pris2 * 1.5)
+    pris2 = Math.floor(pris2 * 1.7) 
     m++
     mc.textContent = m
     multi.textContent = "Multiplier: "+multicounter.toFixed(3)+"x"
@@ -81,7 +79,7 @@ function upgrade3() {
   if (teds >= pris3) {
     teds -= pris3
     tedsPerSecond += 1
-    pris3 = Math.floor(pris3 * 1.12)
+    pris3 = Math.floor(pris3 * 1.25) 
     s++
     tps.textContent = s
     updateUI()
@@ -92,16 +90,12 @@ function upgrade4(){
     if (teds >= pris4) {
         teds -= pris4
         superPerSecond += 150
-        pris4 = Math.floor(pris4 * 1.12)
+        pris4 = Math.floor(pris4 * 1.25) 
         st++
         sps.textContent = st
         updateUI()
 }
 }
-
-
-
-
 
 function load(){
   let data = localStorage.getItem("userData").split(",")
@@ -119,14 +113,20 @@ function load(){
   pris3 = +data[11]
   pris4 = +data[12]
   megatedbutton = data[13] === "true"
-  if (megatedbutton === true) {
+  china = data[14] === "true"
+  if (megatedbutton === true || china === true) {
     let megadiv = document.getElementsByClassName("megated")
     for (let i = 0; i < megadiv.length; i++) {
       megadiv[i].remove()
     }
   }
+  if (china === true) {
+    let chinadiv = document.getElementsByClassName("chinated")
+    for (let i = 0; i < chinadiv.length; i++) {
+      chinadiv[i].remove()
+    }
+  }
   
-
   multicounter = multiplier
   updateUI()
 }
@@ -148,7 +148,14 @@ function chinated(){
   if (teds >= pris6){
     teds -=pris6
     china = true
-
+    multiplier *= 150
+    if (china == true) {
+      let chinadiv = document.getElementsByClassName("chinated")
+      for (let i = 0; i < chinadiv.length; i++) {
+        chinadiv[i].remove()
+      }
+    }
+    updateUI()
   }
 }
 
@@ -164,7 +171,7 @@ function deletesave() {
  
 function save(){
     if (resetting){return null}
-  localStorage.setItem("userData",[tedsPerClick,tedsPerSecond,multiplier,superPerSecond,teds,k,m,s,st,pris,pris2,pris3,pris4, megatedbutton])
+  localStorage.setItem("userData",[tedsPerClick,tedsPerSecond,multiplier,superPerSecond,teds,k,m,s,st,pris,pris2,pris3,pris4, megatedbutton, china])
 }
 
 setInterval(() => {
@@ -178,14 +185,12 @@ setInterval(() => {
     if(megatedbutton == true){
             document.getElementById("ted").src = "Nega.png"
             document.getElementById("palm").src = "jungle.png"
-       
     }
     if(china == true){
       document.getElementById("ted").src = "ching.png"
       document.getElementById("palm").src = "chinahouse.png"
- 
-}
+      megatedbutton = false
+    }
     save()
-   
-  }, 1000)
+}, 1000)
 updateUI()

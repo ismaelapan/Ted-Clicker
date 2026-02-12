@@ -67,7 +67,7 @@ button {
   }
   .upgrades {
     
-
+    visibility: hidden;
     position: fixed;
     left: 15px;
     top: 50%;

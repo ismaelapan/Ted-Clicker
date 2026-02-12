@@ -7,7 +7,7 @@ let multiplierCount = 0
 let clickCount = 0
 let perSecondCount = 0
 let superCount = 0
-let luckychance = 0.05
+let luckychance = 0
 let clickPrice = 50   
 let multiplierPrice = 500  
 let perSecondPrice = 50  
@@ -39,7 +39,7 @@ const perSecondCountTag = document.getElementById("tedsPerSecond")
 const multiplierCountTag = document.getElementById("multiplier")
 const multiplierDisplayTag = document.getElementById("multicounter")
 const superCountTag = document.getElementById("superPerSecond")
-
+const luckyCountTag = document.getElementById("luckychance")
 function removeByClass(className) {
   const elements = document.getElementsByClassName(className)
   for (let i = elements.length - 1; i >= 0; i--) {
@@ -72,6 +72,7 @@ function updateUI() {
   multiplierCountTag.textContent = multiplierCount
   multiplierDisplayTag.textContent = "Multiplier: " + formatNumber(multiplier) + "x"
   superCountTag.textContent = superCount
+  luckyCountTag.textContent = "Lucky Chance: " + Math.round(luckychance * 100) + "%"
   let luckyPriceTag = document.getElementById("luckyPrice")
   if (luckyPriceTag) {
     luckyPriceTag.textContent = formatNumber(luckyPrice) + " teds"
@@ -166,7 +167,7 @@ function load(){
   fattedUnlocked = data[16] === "true"
   luckyClickUnlocked = data[17] === "true"
   luckyPrice = +data[18] || 5000
-  luckychance = +data[19] || 0.05
+  luckychance = +data[19] || 0
   sigmaUnlocked = data[20] === "true"
   littletedUnlocked = data[21] === "true"
   if (littletedUnlocked) {

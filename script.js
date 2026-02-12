@@ -48,6 +48,12 @@ function removeByClass(className) {
 }
 
 function formatNumber(num) {
+  if (num >= 1e36) return (num / 1e36).toFixed(2) + "U"
+  if (num >= 1e33) return (num / 1e33).toFixed(2) + "D"
+  if (num >= 1e30) return (num / 1e30).toFixed(2) + "N"
+  if (num >= 1e27) return (num / 1e27).toFixed(2) + "O"
+  if (num >= 1e24) return (num / 1e24).toFixed(2) + "SP"
+  if (num >= 1e21) return (num / 1e21).toFixed(2) + "S"
   if (num >= 1e18) return (num / 1e18).toFixed(2) + "QU"
   if (num >= 1e15) return (num / 1e15).toFixed(2) + "Q"
   if (num >= 1e12) return (num / 1e12).toFixed(2) + "T"
@@ -200,7 +206,7 @@ function littleted(){
     teds -= littletedPrice
     littletedUnlocked = true
     removeByClass("littleted")
-    multiplier *= 5
+    multiplier *= 2
     updateUI()
   }
 }
@@ -210,7 +216,7 @@ function megated(){
         teds -= megatedPrice
         megatedUnlocked = true
         removeByClass("megated")
-        multiplier *= 2
+        multiplier *= 5
         updateUI()
     }
 } 
@@ -228,7 +234,7 @@ function gatoted(){
     teds -= gatoPrice
     gatoUnlocked = true
     removeByClass("gato")
-    multiplier *= 200
+    multiplier *= 100
     updateUI()
   }
 }
@@ -238,7 +244,7 @@ function inteted(){
     teds -= intetedPrice
     fattedUnlocked = true
     removeByClass("inteted")
-    multiplier *= 1000
+    multiplier *= 250
     updateUI()
   }
 }
@@ -248,7 +254,8 @@ function sigmated(){
     teds -= sigmaPrice
     sigmaUnlocked = true
     removeByClass("sigmated")
-    multiplier *= 5000
+    multiplier *= 1000
+    alert("sigma grind complete, you are now a true gamer.")
     updateUI()
   }
 }

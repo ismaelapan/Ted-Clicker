@@ -12,13 +12,15 @@ let clickPrice = 50
 let multiplierPrice = 500  
 let perSecondPrice = 50  
 let superPrice = 2500  
-let megatedPrice = 50000 
+let littletedPrice = 100000
+let megatedPrice = 5000000 
 let chinatedPrice = 3000000000 
 let gatoPrice = 600000000000
 let intetedPrice = 5000000000000
 let sigmaPrice = 500000000000000
 let luckyPrice = 5000
 let resetting = false
+let littletedUnlocked = false
 let megatedUnlocked = false
 let chinaUnlocked = false
 let gatoUnlocked = false
@@ -44,25 +46,35 @@ function removeByClass(className) {
     elements[i].remove()
   }
 }
+
+function formatNumber(num) {
+  if (num >= 1e15) return (num / 1e15).toFixed(2) + "Q"
+  if (num >= 1e12) return (num / 1e12).toFixed(2) + "T"
+  if (num >= 1e9) return (num / 1e9).toFixed(2) + "B"
+  if (num >= 1e6) return (num / 1e6).toFixed(2) + "M"
+  if (num >= 1e3) return (num / 1e3).toFixed(2) + "K"
+  if (num % 1 !== 0) return num.toFixed(2)
+  return num.toString()
+}
  
 if (localStorage.getItem("userData") !== null){
     load()
 }
  
 function updateUI() {
-  tedstag.textContent = "Total teds: " + Math.floor(teds)
-  clickPriceTag.textContent = clickPrice + " teds"
-  multiplierPriceTag.textContent = multiplierPrice + " teds"
-  perSecondPriceTag.textContent = perSecondPrice + " teds"
-  superPriceTag.textContent = superPrice + " teds"
+  tedstag.textContent = "Total teds: " + formatNumber(teds)
+  clickPriceTag.textContent = formatNumber(clickPrice) + " teds"
+  multiplierPriceTag.textContent = formatNumber(multiplierPrice) + " teds"
+  perSecondPriceTag.textContent = formatNumber(perSecondPrice) + " teds"
+  superPriceTag.textContent = formatNumber(superPrice) + " teds"
   clickCountTag.textContent = clickCount
   perSecondCountTag.textContent = perSecondCount
   multiplierCountTag.textContent = multiplierCount
-  multiplierDisplayTag.textContent = "Multiplier: " + multiplier.toFixed(3) + "x"
+  multiplierDisplayTag.textContent = "Multiplier: " + formatNumber(multiplier) + "x"
   superCountTag.textContent = superCount
   let luckyPriceTag = document.getElementById("luckyPrice")
   if (luckyPriceTag) {
-    luckyPriceTag.textContent = luckyPrice + " teds"
+    luckyPriceTag.textContent = formatNumber(luckyPrice) + " teds"
   }
 }
  
@@ -156,6 +168,10 @@ function load(){
   luckyPrice = +data[18] || 5000
   luckychance = +data[19] || 0.05
   sigmaUnlocked = data[20] === "true"
+  littletedUnlocked = data[21] === "true"
+  if (littletedUnlocked) {
+    removeByClass("littleted")
+  }
   if (megatedUnlocked || chinaUnlocked || gatoUnlocked || fattedUnlocked || sigmaUnlocked) {
     removeByClass("megated")
   }
@@ -177,6 +193,16 @@ function load(){
   updateUI()
 }
 
+function littleted(){
+  if (teds >= littletedPrice){
+    teds -= littletedPrice
+    littletedUnlocked = true
+    removeByClass("littleted")
+    multiplier *= 5
+    updateUI()
+  }
+}
+
 function megated(){
     if(teds >= megatedPrice) {
         teds -= megatedPrice
@@ -191,7 +217,7 @@ function chinated(){
     teds -= chinatedPrice
     chinaUnlocked = true
     removeByClass("chinated")
-    multiplier *= 5
+    multiplier *= 50
     updateUI()
   }
 }
@@ -200,7 +226,7 @@ function gatoted(){
     teds -= gatoPrice
     gatoUnlocked = true
     removeByClass("gato")
-    multiplier *= 20
+    multiplier *= 200
     updateUI()
   }
 }
@@ -210,7 +236,7 @@ function inteted(){
     teds -= intetedPrice
     fattedUnlocked = true
     removeByClass("inteted")
-    multiplier *= 100
+    multiplier *= 1000
     updateUI()
   }
 }
@@ -220,14 +246,15 @@ function sigmated(){
     teds -= sigmaPrice
     sigmaUnlocked = true
     removeByClass("sigmated")
-    multiplier *= 500
+    multiplier *= 5000
     updateUI()
   }
 }
 
 function deletesave() {
   if (confirm("vill du radera eller inte jao.")) {
-    resetting=true
+    resetting = true
+    clearInterval(gameLoop)
     localStorage.removeItem("userData")
     alert("Save deleted.")
     location.reload()
@@ -236,17 +263,27 @@ function deletesave() {
  
 function save(){
     if (resetting){return null}
-  localStorage.setItem("userData",[tedsPerClick,tedsPerSecond,multiplier,superPerSecond,teds,clickCount,multiplierCount,perSecondCount,superCount,clickPrice,multiplierPrice,perSecondPrice,superPrice, megatedUnlocked, chinaUnlocked, gatoUnlocked, fattedUnlocked, luckyClickUnlocked, luckyPrice, luckychance, sigmaUnlocked])
+  localStorage.setItem("userData",[tedsPerClick,tedsPerSecond,multiplier,superPerSecond,teds,clickCount,multiplierCount,perSecondCount,superCount,clickPrice,multiplierPrice,perSecondPrice,superPrice, megatedUnlocked, chinaUnlocked, gatoUnlocked, fattedUnlocked, luckyClickUnlocked, luckyPrice, luckychance, sigmaUnlocked, littletedUnlocked])
 }
 
-setInterval(() => {
-    teds += tedsPerSecond * multiplier
-    teds += superPerSecond * multiplier
+const gameLoop = setInterval(() => {
+    let passive = (tedsPerSecond + superPerSecond) * multiplier
+    if (luckyClickUnlocked && Math.random() < luckychance) {
+      passive *= 10
+    }
+    teds += passive
     updateUI()
+    
+    if(littletedUnlocked == true){
+      document.getElementById("ted").src = "little.png"
+      document.getElementById("palm").src = "kinder.png"
+    }
+
     if (teds >= 1000000) {
       document.getElementById("ted").src = "gojo.png"
       document.getElementById("palm").src = "void.png"
     }
+ 
     if(megatedUnlocked == true){
             document.getElementById("ted").src = "Nega.png"
             document.getElementById("palm").src = "jungle.png"

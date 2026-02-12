@@ -14,59 +14,66 @@
 <p id="multicounter">Multiplier: 1x</p>
 
 <div class="upgrades">
-    <h1>Upgrades</h1>
+    <button id="upgradeMenuToggle" onclick="document.getElementsByClassName('upgrades')[0].classList.toggle('hidden'); document.getElementById('upgradeMenuToggle').classList.toggle('hidden')
+    ">Upgrades</button>
     <div>
-        <span id="pris">50 teds</span>
+        <span id="clickPrice">50 teds</span>
         <button onclick="upgrade()">+1 teds / klick</button>
         <span id="tedsPerClick">0</span>
     </div>
 
     <div>
-        <span id="pris2">500 teds</span>
+        <span id="multiplierPrice">500 teds</span>
         <button onclick="upgrade2()">1.2x klick</button>
         <span id="multiplier">0</span>
     </div>
 
     <div>
-        <span id="pris3">50 teds</span>
+        <span id="perSecondPrice">50 teds</span>
         <button onclick="upgrade3()">+1 teds / sekund</button>
         <span id="tedsPerSecond">0</span>
     </div>
 
     <div>
-        <span id="pris4">2,500 teds</span>
+        <span id="superPrice">2,500 teds</span>
         <button onclick="upgrade4()">+150 teds / sekund</button>
         <span id="superPerSecond">0</span>
     </div>
 
-    <div class="megated">
-        <span id="pris5">50,000 teds</span>
-        <button onclick="megated()">???</button>
-    </div>
 
-    <div class="chinated">
-        <span id="pris6">500,000 teds</span>
-        <button onclick="chinated()">Li Ted</button>
-    </div>
     <div class="luckyteds">
-        <span id="pris9">5,000 teds</span>
+        <span id="luckyPrice">5,000 teds</span>
         <button onclick="upgradeLucky()">10*ted chans</button>
     </div>
 </div>
 
 <div class="nyateds">
-    <h1>INTE teds</h1>
+ <h1>INTE teds</h1>
+        <div class="megated">
+        <span id="pris5">50,000 teds</span>
+        <button onclick="megated()">???</button>
+    </div>
+
+    <div class="chinated">
+        <span id="pris6">3,000,000,000 teds</span>
+        <button onclick="chinated()">???</button>
+    </div>
+
     <div class="gato">
-        <span id="pris7">5,000,000 teds</span>
+        <span id="pris7">600,000,000,000 teds</span>
         <button onclick="gatoted()">???</button>
     </div>
 
     <div class="inteted">
-        <span id="pris8">50,000,000 teds</span>
+        <span id="pris8">5,000,000,000,000 teds</span>
         <button onclick="inteted()">???</button>
     </div>
-</div>
 
+    <div class="sigmated">
+        <span id="sigmaPrice">500,000,000,000,000 teds</span>
+        <button onclick="sigmated()">???</button>
+    </div>
+</div>
 
 <div class="deletesave">
     <button onclick="deletesave()">Delete Save</button>

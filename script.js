@@ -2,39 +2,41 @@ let teds = 0
 let tedsPerClick = 1
 let tedsPerSecond = 0
 let multiplier = 1  
-let multicounter = 1
 let superPerSecond = 0
-let m = 0
-let k = 0
-let s = 0
-let st = 0
+let multiplierCount = 0
+let clickCount = 0
+let perSecondCount = 0
+let superCount = 0
 let luckychance = 0.05
-let pris = 50   
-let pris2 = 500  
-let pris3 = 50  
-let pris4 = 2500  
-let pris5 = 50000 
-let pris6 = 500000 
-let pris7 = 5000000
-let pris8 = 50000000
-let pris9 = 5000
-let resetting=false
-let megatedbutton = false
-let china = false
-let gato = false
-let fatted = false
+let clickPrice = 50   
+let multiplierPrice = 500  
+let perSecondPrice = 50  
+let superPrice = 2500  
+let megatedPrice = 50000 
+let chinatedPrice = 3000000000 
+let gatoPrice = 600000000000
+let intetedPrice = 5000000000000
+let sigmaPrice = 500000000000000
+let luckyPrice = 5000
+let resetting = false
+let megatedUnlocked = false
+let chinaUnlocked = false
+let gatoUnlocked = false
+let fattedUnlocked = false
+let sigmaUnlocked = false
 let luckyClickUnlocked = false
+document.getElementsByClassName("upgrades")[0].classList.toggle("hidden")
 
 const tedstag = document.getElementById("teds")
-const pristag = document.getElementById("pris")
-const pristag2 = document.getElementById("pris2")
-const pristag3 = document.getElementById("pris3")
-const pristag4 = document.getElementById("pris4")
-const tpc = document.getElementById("tedsPerClick")
-const tps = document.getElementById("tedsPerSecond")
-const mc = document.getElementById("multiplier")
-const multi = document.getElementById("multicounter")
-const sps = document.getElementById("superPerSecond")
+const clickPriceTag = document.getElementById("clickPrice")
+const multiplierPriceTag = document.getElementById("multiplierPrice")
+const perSecondPriceTag = document.getElementById("perSecondPrice")
+const superPriceTag = document.getElementById("superPrice")
+const clickCountTag = document.getElementById("tedsPerClick")
+const perSecondCountTag = document.getElementById("tedsPerSecond")
+const multiplierCountTag = document.getElementById("multiplier")
+const multiplierDisplayTag = document.getElementById("multicounter")
+const superCountTag = document.getElementById("superPerSecond")
 
 function removeByClass(className) {
   const elements = document.getElementsByClassName(className)
@@ -43,21 +45,25 @@ function removeByClass(className) {
   }
 }
  
-if (localStorage.getItem("userData")!=undefined){
+if (localStorage.getItem("userData") !== null){
     load()
 }
  
 function updateUI() {
   tedstag.textContent = "Total teds: " + Math.floor(teds)
-  pristag.textContent = pris + " teds"
-  pristag2.textContent = pris2 + " teds"
-  pristag3.textContent = pris3 + " teds"
-  pristag4.textContent = pris4 + " teds"
-  tpc.textContent = k
-  tps.textContent = s
-  mc.textContent = m
-  multi.textContent = "Multiplier: " + multiplier.toFixed(3) + "x"
-  sps.textContent = st
+  clickPriceTag.textContent = clickPrice + " teds"
+  multiplierPriceTag.textContent = multiplierPrice + " teds"
+  perSecondPriceTag.textContent = perSecondPrice + " teds"
+  superPriceTag.textContent = superPrice + " teds"
+  clickCountTag.textContent = clickCount
+  perSecondCountTag.textContent = perSecondCount
+  multiplierCountTag.textContent = multiplierCount
+  multiplierDisplayTag.textContent = "Multiplier: " + multiplier.toFixed(3) + "x"
+  superCountTag.textContent = superCount
+  let luckyPriceTag = document.getElementById("luckyPrice")
+  if (luckyPriceTag) {
+    luckyPriceTag.textContent = luckyPrice + " teds"
+  }
 }
  
 function clicked() {
@@ -73,58 +79,57 @@ function clicked() {
 }
  
 function upgrade() {
-  if (teds >= pris) {
-    teds -= pris
+  if (teds >= clickPrice) {
+    teds -= clickPrice
     tedsPerClick += 1
-    pris = Math.floor(pris * 1.2) 
-    k++
+    clickPrice = Math.floor(clickPrice * 1.2) 
+    clickCount++
     updateUI()
   }
 }
  
 function upgrade2() {
-  if (teds >= pris2) {
-    teds -= pris2
+  if (teds >= multiplierPrice) {
+    teds -= multiplierPrice
     multiplier *= 1.2    
-    multicounter *= 1.2
-    pris2 = Math.floor(pris2 * 1.7) 
-    m++
+    multiplierPrice = Math.floor(multiplierPrice * 1.7) 
+    multiplierCount++
     updateUI()
   }
 }
  
 function upgrade3() {
-  if (teds >= pris3) {
-    teds -= pris3
+  if (teds >= perSecondPrice) {
+    teds -= perSecondPrice
     tedsPerSecond += 1
-    pris3 = Math.floor(pris3 * 1.25) 
-    s++
+    perSecondPrice = Math.floor(perSecondPrice * 1.25) 
+    perSecondCount++
     updateUI()
   }
 }
  
 function upgrade4(){
-    if (teds >= pris4) {
-        teds -= pris4
+    if (teds >= superPrice) {
+        teds -= superPrice
         superPerSecond += 150
-        pris4 = Math.floor(pris4 * 1.25) 
-        st++
+        superPrice = Math.floor(superPrice * 1.25) 
+        superCount++
         updateUI()
     }
 }
 
 function upgradeLucky(){
-  if (teds >= pris9){
-    teds -= pris9
+  if (teds >= luckyPrice){
+    teds -= luckyPrice
     luckyClickUnlocked = true
-    luckychance += 0.05
+    luckychance = Math.round((luckychance + 0.05) * 100) / 100
+    luckyPrice = Math.floor(luckyPrice * 1.5)
+    if (luckychance >= 0.50){
+      alert("maximal tur!")
+      removeByClass("luckyteds")
+    }
     updateUI()
   }
-}
-     if (luckychance >= 0.50){
-  alert("maximal tur!")
-    removeByClass("luckyteds")
-    updateUI()
 }
 
 
@@ -135,57 +140,65 @@ function load(){
   tedsPerSecond = +data[1]
   superPerSecond = +data[3]
   teds = +data[4]
-  k = +data[5]
-  m = +data[6]
-  s = +data[7]
-  st = +data[8]
-  pris = +data[9]
-  pris2 = +data[10]
-  pris3 = +data[11]
-  pris4 = +data[12]
-  megatedbutton = data[13] === "true"
-  china = data[14] === "true"
-  gato = data[15] === "true"
-  fatted = data[16] === "true"
+  clickCount = +data[5]
+  multiplierCount = +data[6]
+  perSecondCount = +data[7]
+  superCount = +data[8]
+  clickPrice = +data[9]
+  multiplierPrice = +data[10]
+  perSecondPrice = +data[11]
+  superPrice = +data[12]
+  megatedUnlocked = data[13] === "true"
+  chinaUnlocked = data[14] === "true"
+  gatoUnlocked = data[15] === "true"
+  fattedUnlocked = data[16] === "true"
   luckyClickUnlocked = data[17] === "true"
-  if (megatedbutton === true || china === true || gato === true || fatted === true) {
+  luckyPrice = +data[18] || 5000
+  luckychance = +data[19] || 0.05
+  sigmaUnlocked = data[20] === "true"
+  if (megatedUnlocked || chinaUnlocked || gatoUnlocked || fattedUnlocked || sigmaUnlocked) {
     removeByClass("megated")
   }
-  if (china === true || fatted === true) {
+  if (chinaUnlocked || fattedUnlocked || sigmaUnlocked) {
     removeByClass("chinated")
   }
-  if (gato === true || fatted === true) {
+  if (gatoUnlocked || fattedUnlocked || sigmaUnlocked) {
     removeByClass("gato")
   }
-  if (fatted === true) {
+  if (fattedUnlocked || sigmaUnlocked) {
     removeByClass("inteted")
   }
-  multicounter = multiplier
+  if (sigmaUnlocked) {
+    removeByClass("sigmated")
+  }
+  if (luckychance >= 0.50) {
+    removeByClass("luckyteds")
+  }
   updateUI()
 }
 
 function megated(){
-    if(teds >= pris5) {
-        teds -= pris5
-        megatedbutton = true
+    if(teds >= megatedPrice) {
+        teds -= megatedPrice
+        megatedUnlocked = true
         removeByClass("megated")
         multiplier *= 2
         updateUI()
     }
 } 
 function chinated(){
-  if (teds >= pris6){
-    teds -=pris6
-    china = true
+  if (teds >= chinatedPrice){
+    teds -= chinatedPrice
+    chinaUnlocked = true
     removeByClass("chinated")
     multiplier *= 5
     updateUI()
   }
 }
 function gatoted(){
-  if (teds >= pris7){
-    teds -=pris7
-    gato = true
+  if (teds >= gatoPrice){
+    teds -= gatoPrice
+    gatoUnlocked = true
     removeByClass("gato")
     multiplier *= 20
     updateUI()
@@ -193,11 +206,21 @@ function gatoted(){
 }
 
 function inteted(){
-  if (teds >= pris8){
-    teds -= pris8
-    fatted = true
+  if (teds >= intetedPrice){
+    teds -= intetedPrice
+    fattedUnlocked = true
     removeByClass("inteted")
     multiplier *= 100
+    updateUI()
+  }
+}
+
+function sigmated(){
+  if (teds >= sigmaPrice){
+    teds -= sigmaPrice
+    sigmaUnlocked = true
+    removeByClass("sigmated")
+    multiplier *= 500
     updateUI()
   }
 }
@@ -206,15 +229,14 @@ function deletesave() {
   if (confirm("vill du radera eller inte jao.")) {
     resetting=true
     localStorage.removeItem("userData")
-    alert("Save deleted.");
-    alert(localStorage.getItem("userData"))
-    location.reload();
+    alert("Save deleted.")
+    location.reload()
   }
 }
  
 function save(){
     if (resetting){return null}
-  localStorage.setItem("userData",[tedsPerClick,tedsPerSecond,multiplier,superPerSecond,teds,k,m,s,st,pris,pris2,pris3,pris4, megatedbutton, china, gato, fatted, luckyClickUnlocked])
+  localStorage.setItem("userData",[tedsPerClick,tedsPerSecond,multiplier,superPerSecond,teds,clickCount,multiplierCount,perSecondCount,superCount,clickPrice,multiplierPrice,perSecondPrice,superPrice, megatedUnlocked, chinaUnlocked, gatoUnlocked, fattedUnlocked, luckyClickUnlocked, luckyPrice, luckychance, sigmaUnlocked])
 }
 
 setInterval(() => {
@@ -225,27 +247,25 @@ setInterval(() => {
       document.getElementById("ted").src = "gojo.png"
       document.getElementById("palm").src = "void.png"
     }
-    if(megatedbutton == true){
+    if(megatedUnlocked == true){
             document.getElementById("ted").src = "Nega.png"
             document.getElementById("palm").src = "jungle.png"
     }
-    if(china == true){
+    if(chinaUnlocked == true){
       document.getElementById("ted").src = "ching.png"
       document.getElementById("palm").src = "chinahouse.png"
-      megatedbutton = false
     }
-    if(gato == true){
+    if(gatoUnlocked == true){
       document.getElementById("ted").src = "gato.png"
       document.getElementById("palm").src = "swedish.png"
-      megatedbutton = false
-      china = false
     }
-    if(fatted == true){
+    if(fattedUnlocked == true){
       document.getElementById("ted").src = "bigted.png"
       document.getElementById("palm").src = "donken.png"
-      megatedbutton = false
-      china = false
-      gato = false
+    }
+    if(sigmaUnlocked == true){
+      document.getElementById("ted").src = "blackpill.png"
+      document.getElementById("palm").src = "sigmabackground.png"
     }
 
     save()

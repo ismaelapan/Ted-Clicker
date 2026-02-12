@@ -48,6 +48,7 @@ function removeByClass(className) {
 }
 
 function formatNumber(num) {
+  if (num >= 1e18) return (num / 1e18).toFixed(2) + "QU"
   if (num >= 1e15) return (num / 1e15).toFixed(2) + "Q"
   if (num >= 1e12) return (num / 1e12).toFixed(2) + "T"
   if (num >= 1e9) return (num / 1e9).toFixed(2) + "B"

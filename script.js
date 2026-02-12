@@ -19,6 +19,7 @@ let resetting=false
 let megatedbutton = false
 let china = false
 let gato = false
+document.getElementsByClassName("upgrades")[0].classList.toggle("hidden")
 
 const tedstag = document.getElementById("teds")
 const pristag = document.getElementById("pris")

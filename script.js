@@ -19,6 +19,7 @@ let gatoPrice = 600000000000000
 let intetedPrice = 5000000000000000
 let sigmaPrice = 500000000000000000
 let luckyPrice = 5000
+let rebirthprice = 100000000000000000000
 let resetting = false
 let littletedUnlocked = false
 let megatedUnlocked = false
@@ -61,13 +62,25 @@ function formatNumber(num) {
   if (num >= 1e6) return (num / 1e6).toFixed(2) + "M"
   if (num >= 1e3) return (num / 1e3).toFixed(2) + "K"  
   if (num % 1 !== 0) return num.toFixed(2)
-  return num.toString()
+    return num.toString()
 }
- 
+
 if (localStorage.getItem("userData") !== null){
-    load()
+  load()
 }
- 
+if(localStorage.getItem("rebirthmulti") != undefined ){
+  let data = localStorage.getItem("rebirthmulti").split(",")
+
+  multiplier = +data[0]
+  rebirthprice = +data[1]
+  
+  let rebirthCount = Math.log(multiplier) / Math.log(2)
+  
+  document.getElementById("rebirthCount").innerText = rebirthCount
+  document.getElementById("rebirthprice").innerText = formatNumber(rebirthprice)
+
+}
+
 function updateUI() {
   tedstag.textContent = "Total teds: " + formatNumber(teds)
   clickPriceTag.textContent = formatNumber(clickPrice) + " teds"
@@ -149,6 +162,16 @@ function upgradeLucky(){
       removeByClass("luckyteds")
     }
     updateUI()
+  }
+}
+function rebirth(){
+  if(teds >= rebirthprice){
+    resetting = true
+    clearInterval(gameLoop)
+    localStorage.removeItem("userData")
+    localStorage.setItem("rebirthmulti", multiplier *2 + "," + rebirthprice*2.5)
+    alert("Game WIPED!") 
+    location.reload()
   }
 }
 
@@ -265,8 +288,10 @@ function deletesave() {
     resetting = true
     clearInterval(gameLoop)
     localStorage.removeItem("userData")
+    localStorage.removeItem("rebirthmulti")
     alert("Save deleted.")
     location.reload()
+    
   }
 }
  

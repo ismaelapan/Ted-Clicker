@@ -197,6 +197,42 @@ button:active {
   color: #666;
 }
 
+
+ .rebirth button {
+  background: rgba(255, 255, 255, 0.95);
+  background: linear-gradient(rgb(185, 61, 61), rgb(255, 132, 132));
+  backdrop-filter: blur(10px);
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 16px;
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+ 
+
+.rebirth{
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+}
+.rebirth span {
+  display: block;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  color: #666;
+  border-radius: 16px;
+  font-size: 1.1rem;
+}
+
 .hidden {
   visibility: hidden;
   opacity: 0;

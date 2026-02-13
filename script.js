@@ -10,8 +10,8 @@ let superCount = 0
 let luckychance = 0
 let clickPrice = 50   
 let multiplierPrice = 500  
-let perSecondPrice = 50  
-let superPrice = 2500  
+let perSecondPrice = 5 
+let superPrice = 500
 let littletedPrice = 100000
 let megatedPrice = 5000000 
 let chinatedPrice = 3000000000 
@@ -59,7 +59,7 @@ function formatNumber(num) {
   if (num >= 1e12) return (num / 1e12).toFixed(2) + "T"
   if (num >= 1e9) return (num / 1e9).toFixed(2) + "B"
   if (num >= 1e6) return (num / 1e6).toFixed(2) + "M"
-  if (num >= 1e3) return (num / 1e3).toFixed(2) + "K"
+  if (num >= 1e3) return (num / 1e3).toFixed(2) + "K"  
   if (num % 1 !== 0) return num.toFixed(2)
   return num.toString()
 }

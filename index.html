@@ -9,9 +9,6 @@
   <script src="script.js" defer></script>
 </head>
 <body>
- 
-<p id="teds">Total teds: 0</p>
-<p id="multicounter">Multiplier: 1x</p>
 
 <button id="upgradeMenuToggle" onclick="document.getElementsByClassName('upgrades')[0].classList.toggle('hidden')">Upgrades</button>
 
@@ -51,32 +48,32 @@
 <div class="nyateds">
  <h1>INTE teds</h1>
         <div class="littleted">
-        <span>100K teds</span>
+        <span>10.00K teds</span>
         <button onclick="littleted()">???</button>
     </div>
 
         <div class="megated">
-        <span id="pris5">5.00M teds</span>
+        <span id="pris5">250.00K teds</span>
         <button onclick="megated()">???</button>
     </div>
 
     <div class="chinated">
-        <span id="pris6">3.00b teds</span>
+        <span id="pris6">25.00M teds</span>
         <button onclick="chinated()">???</button>
     </div>
 
     <div class="gato">
-        <span id="pris7">600.00T teds</span>
+        <span id="pris7">1.00Q teds</span>
         <button onclick="gatoted()">???</button>
     </div>
 
     <div class="inteted">
-        <span id="pris8">5.00Q teds</span>
+        <span id="pris8">100.00Q teds</span>
         <button onclick="inteted()">???</button>
     </div>
 
     <div class="sigmated">
-        <span id="sigmaPrice">500.00Q teds</span>
+        <span id="sigmaPriceTag">10.00QU teds</span>
         <button onclick="sigmated()">???</button>
     </div>
 </div>
@@ -92,6 +89,11 @@
 </div>
 
 <div class="center">
+<div id="clickFeedback"></div>
+  <p id="multicounter">Multiplier: 1x</p>
+  <p id="teds">Total teds: 0</p>
+  <p id="tedsPerSec">0 teds/sec</p>
+
   <button onclick="clicked()">
     <img id="ted" src="Image.png" width="200" alt="Ted">
   </button>
@@ -99,6 +101,8 @@
 
 <img id="palm" src="palm.png" alt="palm" 
      style="position:fixed; inset:0; width:100vw; height:100vh; object-fit:cover; z-index:-1; pointer-events:none;">
+
+<img id="goldenTed" src="Image.png" class="golden-ted hidden" onclick="clickGoldenTed()">
  
 </body>
 </html>

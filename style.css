@@ -54,33 +54,23 @@ button:active {
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
-#teds, #multicounter {
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
+#teds, #multicounter, #tedsPerSec {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   color: #333;
-  padding: 12px 20px;
+  padding: 10px 20px;
   border-radius: 14px;
   font-weight: 700;
   font-size: 1rem;
   width: 220px;
   text-align: center;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  z-index: 9999;
 }
 
-#teds {
-  top: 55vh;
-  bottom: auto;
-}
-
-#multicounter {
-  top: 50vh;
-  bottom: auto;
+#tedsPerSec {
+  font-size: 0.8rem;
+  color: #888;
+  padding: 6px 16px;
 }
 
 .deletesave {
@@ -134,12 +124,14 @@ button:active {
 
 .center {
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  gap: 6px;
+  z-index: 9999;
 }
 
 .center button {
@@ -199,7 +191,6 @@ button:active {
 
 
  .rebirth button {
-  background: rgba(255, 255, 255, 0.95);
   background: linear-gradient(rgb(185, 61, 61), rgb(255, 132, 132));
   backdrop-filter: blur(10px);
   border: none;
@@ -208,32 +199,104 @@ button:active {
   border-radius: 16px;
   transition: transform 0.1s ease, box-shadow 0.15s ease;
 }
- 
 
-.rebirth{
+.rebirth {
   position: fixed;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 8px;
   background: rgba(255, 255, 255, 0.95);
-  align-items: center;
-  display: flex;
-  flex-direction: column;
   border-radius: 16px;
+  padding: 10px;
 }
+
 .rebirth span {
   display: block;
   padding: 4px 8px;
-  font-size: 0.85rem;
-  color: #666;
-  border-radius: 16px;
   font-size: 1.1rem;
+  color: #666;
 }
 
 .hidden {
   visibility: hidden;
   opacity: 0;
+}
+
+#clickFeedback {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.click-text {
+  position: absolute;
+  bottom: 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #333;
+  animation: floatUp 0.8s ease-out forwards;
+  pointer-events: none;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.click-text.lucky {
+  color: #f59e0b;
+  font-size: 1.4rem;
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 2;
+    transform: translateY(0) scale(2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-200px) scale(1);
+  }
+}
+
+.golden-ted {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  z-index: 10000;
+  filter: brightness(1.2) sepia(1) saturate(5) hue-rotate(15deg) drop-shadow(0 0 15px gold);
+  animation: goldenBounce 1s ease-in-out infinite;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.golden-ted:hover {
+  transform: scale(1.2);
+  filter: brightness(1.4) sepia(1) saturate(5) hue-rotate(15deg) drop-shadow(0 0 25px gold);
+}
+
+@keyframes goldenBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+#goldenBonusBar {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(90deg, gold, orange);
+  color: #000;
+  font-weight: bold;
+  padding: 8px 24px;
+  border-radius: 20px;
+  z-index: 9999;
+  font-size: 1.1em;
+  box-shadow: 0 0 20px gold;
+  text-align: center;
+  pointer-events: none;
 }

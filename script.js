@@ -114,7 +114,6 @@ function load() {
   if (state.chinaUnlocked || state.fattedUnlocked || state.sigmaUnlocked) removeByClass("chinated")
   if (state.gatoUnlocked || state.fattedUnlocked || state.sigmaUnlocked) removeByClass("gato")
   if (state.fattedUnlocked || state.sigmaUnlocked) removeByClass("inteted")
-  if (state.sigmaUnlocked) removeByClass("sigmated")
   if (state.luckychance >= 0.50) removeByClass("luckyteds")
 
   updateUI()
@@ -176,11 +175,11 @@ function clicked() {
     damage *= 10
   }
   state.teds += damage
-  showClickFeedback(damage)
+  showClicks(damage)
   updateUI()
 }
 
-function showClickFeedback(amount) {
+function showClicks(amount) {
   let el = document.createElement("span")
   el.className = "click-text"
   el.textContent = typeof amount === "string" ? amount : "+" + formatNumber(amount)

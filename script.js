@@ -87,7 +87,7 @@ function save() {
   if (resetting) return
   if (guldActive) {
     let realMultiplier = state.multiplier
-    state.multiplier = guldOgMulti
+    state.multiplier = gammalMulti
     localStorage.setItem("userData", JSON.stringify(state))
     state.multiplier = realMultiplier
   } else {

@@ -85,9 +85,11 @@ function formatNumber(num) {
 
 function save() {
   if (resetting) return
+  state.saveHash = simpleHash(state)
   if (guldActive) {
     let realMultiplier = state.multiplier
     state.multiplier = gammalMulti
+    state.saveHash = simpleHash(state)
     localStorage.setItem("userData", JSON.stringify(state))
     state.multiplier = realMultiplier
   } else {
@@ -102,6 +104,11 @@ function load() {
     const data = JSON.parse(raw)
     for (let key in data) {
       state[key] = data[key]
+    }
+  
+    if (state.saveHash && state.saveHash !== simpleHash(state)) {
+      fuskare("sparfilen har ändrats manuellt")
+      return
     }
   } catch (e) {
     localStorage.removeItem("userData")
@@ -144,6 +151,25 @@ if (localStorage.getItem("userData") !== null) {
 state.gatoPrice = 1000000000000000
 state.intetedPrice = 100000000000000000
 state.sigmaPrice = 10000000000000000000
+
+
+function fuskare(reason) {
+  resetting = true
+  localStorage.removeItem("userData")
+  localStorage.removeItem("rebirthmulti")
+  alert("fusk upptäckt: " + reason + ". save raderad.")
+  window.location.href = window.location.href
+}
+
+function simpleHash(obj) {
+  let s = (obj.teds || 0) + "|" + (obj.multiplier || 1) + "|" + (obj.tedsPerClick || 1) + "|" + (obj.tedsPerSecond || 0)
+  let h = 0
+  for (let i = 0; i < s.length; i++) {
+    h = ((h << 5) - h) + s.charCodeAt(i)
+    h = h & h
+  }
+  return h.toString()
+}
 
 function updateUI() {
   dom.teds.textContent = "Total teds: " + formatNumber(state.teds)
@@ -307,7 +333,7 @@ function deletesave() {
     localStorage.removeItem("rebirthmulti")
     alert("Save deleted.")
     location.reload()
-  }
+  } 
 }
 
 

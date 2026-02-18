@@ -23,6 +23,7 @@ const state = {
   luckyPrice: 5000,
   rebirthprice: 100000000000000000000,
   rebirthCount: 0,
+  epsteinprice: 10,
   littletedUnlocked: false,
   megatedUnlocked: false,
   chinaUnlocked: false,
@@ -30,6 +31,7 @@ const state = {
   fattedUnlocked: false,
   sigmaUnlocked: false,
   luckyClickUnlocked: false,
+  epsteinUnlocked: false,
 }
 
 let resetting = false
@@ -121,6 +123,7 @@ function load() {
   if (state.gatoUnlocked || state.fattedUnlocked || state.sigmaUnlocked) removeByClass("gato")
   if (state.fattedUnlocked || state.sigmaUnlocked) removeByClass("inteted")
   if (state.luckychance >= 0.50) removeByClass("luckyteds")
+  if (state.epsteinUnlocked) removeByClass("esptizzle")
 
   updateUI()
 }
@@ -130,7 +133,7 @@ function fuskare(reason) {
   localStorage.removeItem("userData")
   localStorage.removeItem("rebirthmulti")
   localStorage.removeItem("tedHash")
-  alert("fusk upptäckt: " + reason + ". save raderad.")
+  alert("FUSKAR HORA" + reason + ". save raderad din APA.")
   window.location.href = window.location.href
 }
 
@@ -170,11 +173,6 @@ state.gatoPrice = 1000000000000000
 state.intetedPrice = 100000000000000000
 state.sigmaPrice = 10000000000000000000
 
-
-
-
-
-
 function updateUI() {
   dom.teds.textContent = "Total teds: " + formatNumber(state.teds)
   const perSec = (state.tedsPerSecond + state.superPerSecond) * state.multiplier
@@ -196,6 +194,9 @@ function updateUI() {
   if (dom.intetedPrice) dom.intetedPrice.textContent = formatNumber(state.intetedPrice) + " teds"
   if (dom.sigmaPrice) dom.sigmaPrice.textContent = formatNumber(state.sigmaPrice) + " teds"
   document.title = formatNumber(state.teds) + " teds — Ted Clicker"
+  if (document.getElementById("epsteinprice")) {
+    document.getElementById("epsteinprice").textContent = state.epsteinprice + " REBIRTHS"
+  }
 }
  
 function clicked() {
@@ -315,7 +316,17 @@ function buySpecialUpgrade(priceKey, unlockKey, className, multiplierBoost) {
     updateUI()
   }
 }
-
+function upgradeEPS() {
+  if (state.rebirthCount >= state.epsteinprice) {
+    state.rebirthCount -= state.epsteinprice
+    state.epsteinUnlocked = true
+      rebirthBaseMulti *= 10
+      state.multiplier = rebirthBaseMulti
+    alert("du har vunnit, epstein grind complete. radera din save och börja om för att få den riktiga belöningen.")
+    removeByClass("epstizzle")
+    updateUI()
+  }
+}
 function littleted() { buySpecialUpgrade("littletedPrice", "littletedUnlocked", "littleted", 2) }
 function megated()   { buySpecialUpgrade("megatedPrice", "megatedUnlocked", "megated", 5) }
 function chinated()  { buySpecialUpgrade("chinatedPrice", "chinaUnlocked", "chinated", 50) }
@@ -328,6 +339,8 @@ function sigmated() {
     alert("sigma grind complete, you are now a true gamer.")
   }
 }
+
+
 
 function deletesave() {
   if (confirm("vill du radera eller inte jao.")) {
@@ -345,6 +358,7 @@ let currentTheme = ""
 
 function updateTheme() {
   let newTheme = "default"
+  if (state.epsteinUnlocked) newTheme = "epstein"
   if (state.sigmaUnlocked)      newTheme = "sigma"
   else if (state.fattedUnlocked) newTheme = "fatted"
   else if (state.gatoUnlocked)   newTheme = "gato"
@@ -357,6 +371,7 @@ function updateTheme() {
   currentTheme = newTheme
 
   const themes = {
+    epstein :    ["epstein.png", "epsteinbackground.png"],
     sigma:   ["blackpill.png", "sigmabackground.png"],
     fatted:  ["bigted.png", "donken.png"],
     gato:    ["gato.png", "swedish.png"],

@@ -109,7 +109,7 @@ function load() {
     }
     const savedHash = localStorage.getItem("tedHash")
     if (savedHash && savedHash !== String(simpleHash(state))) {
-      fuskare("sparfilen har ändrats manuellt")
+      fuskare("du har ändrat något manuellt")
       return
     }
   } catch (e) {
